@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/post_support"
+        android:title="@string/support" />
+
+    <item
+        android:id="@+id/post_remove"
+        android:title="@string/remove" />
+
+</menu>

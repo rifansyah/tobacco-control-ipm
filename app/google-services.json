@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "141690775805",
+    "firebase_url": "https://tobaccocontrol-d3c9f.firebaseio.com",
+    "project_id": "tobaccocontrol-d3c9f",
+    "storage_bucket": "tobaccocontrol-d3c9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141690775805:android:0e21a58f67e4e8a5",
+        "android_client_info": {
+          "package_name": "com.tribute.app.tobaccocontrol_ipm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141690775805-14cbue9trtqjgv791i875pob5945eh2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tribute.app.tobaccocontrol_ipm",
+            "certificate_hash": "f6bc7a2f237cd2518b2b6f08f0acfb23f929acea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf9LJLx1a_XMQYCml3kNJOailkO1zUDlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141690775805-d9d0ult3j8l30ce2n7hmnoj9gb28e6h6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

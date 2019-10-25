@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF8F00</color>
+    <color name="colorPrimaryDark">#E17E00</color>
+    <color name="colorAccent">#BB2929</color>
+
+    <color name="white">#FFffff</color>
+    <color name="black">#000000</color>
+    <color name="light_grey">#30000000</color>
+    <color name="red">#f44242</color>
+    <color name="colorBackground">#333C46</color>
+    <color name="colorSplashText">#F0F0F0</color>
+    <color name="colorProgressBar">#BB2929</color>
+    <color name="colorTextView">#83898E</color>
+    <color name="lightGray">#F1F3F8</color>
+    <color name="grey">#696969</color>
+    <color name="limegreen">#32CD32</color>
+</resources>

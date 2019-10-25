@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.tribute.app.tobaccocontrol_ipm">
+
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-feature
+            android:name="android.hardware.location.network"
+            android:required="false"/>
+    <uses-feature
+            android:name="android.hardware.location.gps"
+            android:required="false"/>
+
+    <application
+            android:allowBackup="true"
+            android:hardwareAccelerated="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".ProfileActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <meta-data
+                android:name="com.here.android.maps.appid"
+                android:value="D5EHsgfD05euRYU9ktBL"/>
+        <meta-data
+                android:name="com.here.android.maps.apptoken"
+                android:value="CmteId1pkqgGSWiWICWCXQ"/>
+
+        <activity android:name=".ShowImageActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".SplashScreenActivity"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".EditProfileActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".PostDetailActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".RegisterActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".LoginActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/app_name"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".ReportActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".MainActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.tribute.android.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+    </application>
+
+</manifest>

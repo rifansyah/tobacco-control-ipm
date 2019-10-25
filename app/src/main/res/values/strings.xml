@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Tobacco Control - IPM</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_report">Lapor</string>
+    <string name="title_profile">Profil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tc_ipm">TC - IPM</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="keep_the_city_together">Jaga kota bersama</string>
+    <string name="sign_up">Sign up</string>
+    <string name="forget_password">Lupa password?</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Nama</string>
+    <string name="exit">Keluar</string>
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="remove">Hapus</string>
+    <string name="support">Dukung</string>
+    <string name="change_photo">Ganti foto</string>
+    <string name="address">Alamat</string>
+    <string name="edit">Sunting</string>
+    <string name="profile">Profil</string>
+    <string name="location">Lokasi</string>
+</resources>
