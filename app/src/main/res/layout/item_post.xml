@@ -25,29 +25,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:id="@+id/tv_name"
-                app:layout_constraintStart_toEndOf="@+id/iv_profile_image"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_location"
-                app:layout_constraintVertical_chainStyle="packed"/>
-
-        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lokasi"
-                android:textSize="10sp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                android:layout_marginStart="8dp"
+                android:text="Nama"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile_image"
-                android:layout_marginStart="8dp"
-                android:id="@+id/tv_location"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
                 android:id="@+id/tv_post_menu"
@@ -122,16 +110,104 @@
             android:maxLines="10"
             android:ellipsize="end"
             android:layout_marginTop="8dp"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/light_grey"
+            android:layout_marginBottom="16dp"/>
 
     <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/grey"
-            android:textSize="12sp"/>
+            android:textSize="16sp"
+            android:text="Informasi laporan :"/>
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TableRow
+                android:layout_marginTop="4dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi pelanggaran"
+                    android:id="@+id/tv_location"/>
+        </TableRow>
+
+        <TableRow
+                android:layout_marginTop="4dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat pelanggaran"
+                    android:id="@+id/tv_violation_place"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_marginTop="4dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jenis"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat pelanggaran"
+                    android:id="@+id/tv_violation_kind"/>
+        </TableRow>
+
+        <TableRow
+                android:layout_marginTop="4dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu pelanggaran"
+                    android:id="@+id/tv_date_time"/>
+        </TableRow>
+
+    </TableLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:visibility="gone"

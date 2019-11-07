@@ -72,7 +72,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
         if(passwordEditText.text.toString().isEmpty()) {
             valid = false
-            passwordEditText.error = "Tidak boleh kosong"
+            til_password.error = "Tidak boleh kosong"
         }
 
         if(nameEditText.text.toString().isEmpty()) {

@@ -47,10 +47,12 @@ open class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val nameSender = view.tv_name
     val llPostItem = view.ll_post_item
     val comment = view.tv_comment
-    val date = view.tv_date
+    val date = view.tv_date_time
     val menu = view.tv_post_menu
     val support = view.iv_support
     val supportText = view.tv_support
+    val violationPlace = view.tv_violation_place
+    val violationKind = view.tv_violation_kind
     var isSupported = false
 
     fun setOnClick(post: Post, context: Context?, position: Int, menuListener: (idPost: String, position: Int, post: Post, menu: String) -> Unit, supportListener: (support: Boolean, idPost: String) -> Unit) {
@@ -172,7 +174,9 @@ open class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         }
 
         descriptionPost.text = post.descriptionPost
-        locationPost.text = "${post.city}, ${post.province}"
-        date.text = post.date
+        locationPost.text = if (post.additionalLocationInfo.isEmpty()) "${post.city}, ${post.province}" else "${post.additionalLocationInfo}\n${post.city}, ${post.province}}"
+        date.text = "${post.date} - ${post.time}"
+        violationPlace.text = post.violationPlace
+        violationKind.text = post.violationKind
     }
 }
