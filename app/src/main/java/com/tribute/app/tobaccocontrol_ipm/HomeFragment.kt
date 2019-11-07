@@ -33,35 +33,28 @@ import java.lang.Exception
 
 class HomeFragment : Fragment() {
 
-    val posts: ArrayList<Post> = ArrayList()
+    private val mAuth = FirebaseAuth.getInstance()
+    private val myDB = FirebaseFirestore.getInstance()
+    private val storageRef = FirebaseStorage.getInstance().reference
 
-    val myDB = FirebaseFirestore.getInstance()
-    val storageRef = FirebaseStorage.getInstance().reference
-    val mAuth = FirebaseAuth.getInstance()
+    private val urlCarouselItem = ArrayList<String>()
+    private val posts: ArrayList<Post> = ArrayList()
 
-    var firstLoad = true
+    private val TAG = "HOME_FRAGMENT"
 
-    val urlCarouselItem = ArrayList<String>()
-
-    private val TAG = "HOME FRAGMENT"
-
-    private var roleUser = MainActivity.ROLEUSER
-    val imageList = ArrayList<SlideModel>()
+    private val imageList = ArrayList<SlideModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_home, container, false)
-
-        return v
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         posts.clear()
-//        getPostData(view)
         setDataListener(view)
         setCarousel(view)
     }
@@ -125,14 +118,14 @@ class HomeFragment : Fragment() {
                             val it = dc.document
 
                             val idPost = it.id
-                            val idUser = it.get("id_user").toString()
-                            val urlPhoto = it.get("url_photo").toString()
-                            val city = it.get("city").toString()
-                            val province = it.get("province").toString()
-                            val description = it.get("description").toString()
-                            val date = it.get("date").toString()
-                            val latitude = it.get("latitude") as Double
-                            val longitude = it.get("longitude") as Double
+                            val idUser = if (it.get("id_user").toString() != null) it.get("id_user").toString() else ""
+                            val urlPhoto = if (it.get("url_photo").toString() != null) it.get("url_photo").toString() else ""
+                            val city = if (it.get("city").toString() != null) it.get("city").toString() else "Keterangan kota tidak dimasukkan"
+                            val province = if (it.get("province").toString() != null) it.get("province").toString() else ""
+                            val description = if (it.get("description").toString() != null) it.get("description").toString() else "Deskripsi tidak dimasukkan"
+                            val date = if (it.get("date").toString() != null) it.get("date").toString() else "Data tanggal tidak dimasukkan"
+                            val latitude = if (it.get("latitude") != null) it.get("latitude") as Double else -7.782834
+                            val longitude = if (it.get("longitude") != null) it.get("longitude") as Double else 110.368279
 
                             posts.add(Post(idPost, idUser, urlPhoto, city, province, description, date, latitude, longitude, ArrayList<Comment>()))
                             v.rv_home.adapter?.notifyDataSetChanged()

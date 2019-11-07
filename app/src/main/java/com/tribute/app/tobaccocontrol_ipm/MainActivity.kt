@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
     val homeFragment = HomeFragment()
     val profileFragment = ProfileFragment()
 
-    private var latitude : Double? = null
-    private var longitude : Double? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var doubleBackToExitPressedOnce = false
     private var mLocationManager : LocationManager? = null
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_report -> {
                 startActivity(Intent(this, ReportActivity::class.java))
-//                return@OnNavigationItemSelectedListener true
+                return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_profile -> {
                 replaceFragmentWithoutBackStack(profileFragment, R.id.fragment_container)
@@ -73,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         checkPermission()
@@ -82,11 +79,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getLocation() {
-        //check permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission(this)
         }
-        //get location
         mLocationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
         mLocationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,

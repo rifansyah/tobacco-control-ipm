@@ -1,8 +1,10 @@
 package com.tribute.app.tobaccocontrol_ipm
 
+import android.Manifest
 import android.animation.Animator
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -18,16 +21,21 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
+    private val TAG = "LOGIN_ACTIVITY"
     private val mAuth  = FirebaseAuth.getInstance()
-
-    private val TAG = "LOGIN ACTIVITY"
     private val myDb = FirebaseFirestore.getInstance()
+    private val permissions = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // check location
         showDialogIfLocationIsDisabled()
 
         object : CountDownTimer(100, 100) {
@@ -45,9 +53,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         setupValidation()
     }
 
-    fun setOnClick() {
+    private fun setOnClick() {
         loginButton.setOnClickListener(this)
         tv_signup.setOnClickListener(this)
+        tv_forget_password.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -60,17 +69,21 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, RegisterActivity::class.java))
                 this.finishAffinity()
             }
+
+            R.id.tv_forget_password -> {
+                startActivity(Intent(this, ForgotPasswordActivity::class.java))
+            }
         }
     }
 
-    fun setupValidation() {
+    private fun setupValidation() {
         emailEditText.validate(
             { s -> s.isValidEmail() },
             "Valid email address required"
         )
     }
 
-    fun isValid() : Boolean {
+    private fun isValid() : Boolean {
         var valid = true
 
         if(emailEditText.text.toString().isEmpty()) {
@@ -86,8 +99,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         return valid
     }
 
-    fun login() {
-        progressbar.visibility = View.VISIBLE
+    private fun login() {
+        progressbar.visibility = VISIBLE
 
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
@@ -95,7 +108,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     myDb.collection("users").document(mAuth.currentUser?.uid.toString()).get().addOnSuccessListener {
                         val editor = getSharedPreferences(MainActivity.MYPREF, Context.MODE_PRIVATE).edit()
 
@@ -109,7 +121,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         this.finishAffinity()
                     }
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Login gagal. silahkan coba lagi",
                         Toast.LENGTH_SHORT).show()
@@ -136,7 +147,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    fun isLogin() : Boolean {
+    private fun isLogin() : Boolean {
         val user = mAuth.currentUser
         return user != null
     }
@@ -147,5 +158,21 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             this.finishAffinity()
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }
+        if (hasNoPermissions()) {
+            requestPermission()
+        }
+    }
+
+    private fun hasNoPermissions(): Boolean{
+        return ContextCompat.checkSelfPermission(this,
+            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission(){
+        ActivityCompat.requestPermissions(this, permissions,0)
     }
 }

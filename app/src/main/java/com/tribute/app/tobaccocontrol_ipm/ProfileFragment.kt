@@ -125,14 +125,14 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                             val it = dc.document
 
                             val idPost = it.id
-                            val idUser = it.get("id_user").toString()
-                            val urlPhoto = it.get("url_photo").toString()
-                            val city = it.get("city").toString()
-                            val province = it.get("province").toString()
-                            val description = it.get("description").toString()
-                            val date = it.get("date").toString()
-                            val latitude = it.get("latitude") as Double
-                            val longitude = it.get("longitude") as Double
+                            val idUser = if (it.get("id_user").toString() != null) it.get("id_user").toString() else ""
+                            val urlPhoto = if (it.get("url_photo").toString() != null) it.get("url_photo").toString() else ""
+                            val city = if (it.get("city").toString() != null) it.get("city").toString() else "Keterangan kota tidak dimasukkan"
+                            val province = if (it.get("province").toString() != null) it.get("province").toString() else ""
+                            val description = if (it.get("description").toString() != null) it.get("description").toString() else "Deskripsi tidak dimasukkan"
+                            val date = if (it.get("date").toString() != null) it.get("date").toString() else "Data tanggal tidak dimasukkan"
+                            val latitude = if (it.get("latitude") != null) it.get("latitude") as Double else -7.782834
+                            val longitude = if (it.get("longitude") != null) it.get("longitude") as Double else 110.368279
 
                             posts.add(Post(idPost, idUser, urlPhoto, city, province, description, date, latitude, longitude, ArrayList<Comment>()))
                             postsIndex.add(idPost)
