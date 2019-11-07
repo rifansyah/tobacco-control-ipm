@@ -66,7 +66,8 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location"/>
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_location_on_24dp"/>
 
                 <TextView
                         android:id="@+id/tv_location"
@@ -75,11 +76,161 @@
                         android:background="@color/white"
                         android:maxLines="1"
                         android:layout_marginLeft="8dp"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textColor="@color/grey"
-                        android:text="Lokasi"/>
+                        android:text="Klik untuk pilih lokasi"/>
 
             </LinearLayout>
+
+            <EditText
+                    android:id="@+id/et_location_name"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:hint="Keterangan lokasi tambahan (Nama sekolah, jalan, dll)"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_location_city_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:text="Tempat pelanggaran"/>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_violation_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/violation_place_list"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_smoking_rooms_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:text="Jenis pelanggaran"/>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_violation_kind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/violation_kind_list"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                    android:id="@+id/ll_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_access_alarm_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:text="Waktu pelanggaran"/>
+
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/tv_date_time"
+                        android:text="Klik untuk masukkan waktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
 
             <EditText
                     android:id="@+id/et_description"
@@ -106,5 +257,10 @@
             android:textAllCaps="false"
             android:background="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include
+            android:visibility="gone"
+            android:id="@+id/progressbar"
+            layout="@layout/progress_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

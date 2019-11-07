@@ -1,8 +1,8 @@
 package com.tribute.app.tobaccocontrol_ipm
 
 
-import android.app.Dialog
-import android.app.PendingIntent
+import android.app.*
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,7 +27,9 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.exifinterface.media.ExifInterface
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -38,133 +40,33 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
 
     private val MAP_BUTTON_REQUEST_CODE = 1
 
-    private var latitude : Double? = null
-    private var longitude : Double? = null
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var latLng : LatLng? = null
 
-    private var progressDialog : Dialog? = null
-
-    private var mLocationManager: LocationManager? = null
-    private var mLocationManager2: LocationManager? = null
-    private val mLocationListener = object : LocationListener {
-        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-
-        }
-
-        override fun onProviderEnabled(provider: String?) {
-
-        }
-
-        override fun onProviderDisabled(provider: String?) {
-            progressDialog?.dismiss()
-            context?.showDialogIfLocationIsDisabled()
-        }
-
-
-        override fun onLocationChanged(location: Location) {
-            latitude = location?.latitude
-            longitude = location?.longitude
-            try {
-                val geocoder = Geocoder(context!!, Locale.getDefault());
-                val addresses = geocoder.getFromLocation(latitude!!, longitude!!, 1);
-                cityName = addresses.get(0).locality
-                provinceName = addresses.get(0).adminArea
-            } catch (e: Exception) {
-                activity?.onBackPressed()
-                progressDialog?.dismiss()
-                context?.onSnackNotif(postImage, "Gagal mengambil lokasi, periksa gps kamu")
-            }
-
-            tv_location.text = ("$cityName, $provinceName")
-            progressDialog?.dismiss()
-        }
-    }
-
-    var cityName = ""
-    var provinceName = ""
+    private var cityName = ""
+    private var provinceName = ""
+    private var date = ""
+    private var time = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_report_description, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressDialog = context?.showProgressDialog()
-        progressDialog?.findViewById<TextView>(R.id.tv_upload_progress)?.text = "Sedang mengambil data lokasi kamu, mohon menunggu"
-        progressDialog?.show()
-        progressDialog?.findViewById<TextView>(R.id.tv_cancel)?.setOnClickListener {
-            progressDialog?.dismiss()
-            activity?.onBackPressed()
-        }
-
         postImage = view.findViewById(R.id.iv_post_image) as ImageView
 
         setupOnClick()
         setImage(view)
-
-        getLocation()
     }
 
-    fun getLocation() {
-        //check permission
-        checkPermission()
-
-        mLocationManager = context?.getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
-
-        mLocationManager?.requestLocationUpdates(
-            LocationManager.NETWORK_PROVIDER, 3000,
-            5000.0.toFloat(), mLocationListener)
-
-        mLocationManager2 = context?.getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
-
-        mLocationManager2?.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER, 3000,
-            5000.0.toFloat(), mLocationListener)
-
-    }
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
-//
-//        checkPermission()
-//
-//        fusedLocationClient.lastLocation
-//            .addOnSuccessListener { location : Location? ->
-//                latitude = location?.latitude
-//                longitude = location?.longitude
-//                try {
-//                    val geocoder = Geocoder(context!!, Locale.getDefault());
-//                    val addresses = geocoder.getFromLocation(latitude!!, longitude!!, 1);
-//                    cityName = addresses.get(0).locality
-//                    provinceName = addresses.get(0).adminArea
-//                } catch (e: Exception) {
-//                    activity?.onBackPressed()
-//                    progressDialog?.dismiss()
-//                    context?.onSnackNotif(postImage, "Gagal mengambil lokasi, periksa gps kamu")
-//                }
-//
-//                tv_location.text = ("$cityName, $provinceName")
-//                progressDialog?.dismiss()
-//            }.addOnFailureListener {
-//                activity?.onBackPressed()
-//                progressDialog?.dismiss()
-//                context?.onSnackNotif(postImage, "Gagal mengambil lokasi, periksa gps kamu")
-//            }
-    fun checkPermission() {
-        if ( ContextCompat.checkSelfPermission( context!!, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( activity!!, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                0 )
-        }
-    }
-
-    fun setupOnClick() {
+    private fun setupOnClick() {
         btn_continue.setOnClickListener(this)
         ll_location.setOnClickListener(this)
+        ll_date_time.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -172,10 +74,39 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
             R.id.btn_continue -> {
                 if (isValid()) gotoNextFragment()
             }
+            R.id.ll_location -> {
+                startActivityForResult(Intent(context, MapsActivity::class.java), MAP_BUTTON_REQUEST_CODE)
+            }
+            R.id.ll_date_time -> {
+                showDatePicker()
+            }
         }
     }
 
-    fun setImage(v: View) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        progressbar.visibility = View.VISIBLE
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == MAP_BUTTON_REQUEST_CODE) {
+                try {
+                    latLng = data?.extras?.get("result") as LatLng
+
+                    val geocoder = Geocoder(context, Locale.getDefault())
+                    val addresses = geocoder.getFromLocation(latLng!!.latitude, latLng!!.longitude, 1)
+                    cityName = addresses[0].locality
+                    provinceName = addresses[0].adminArea
+
+                    tv_location.text = ("$cityName, $provinceName")
+                } catch (e: Exception) {
+                    context?.onSnackNotif(postImage, "Gagal mengambil lokasi, periksa gps kamu")
+                }
+            }
+        }
+        progressbar.visibility = View.GONE
+    }
+
+    private fun setImage(v: View) {
         if (dest.exists()) {
 
             val bitmap = BitmapFactory.decodeFile(dest.getAbsolutePath())
@@ -204,7 +135,7 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap {
+    private fun rotateImage(source: Bitmap, angle: Float): Bitmap {
         val matrix = Matrix()
         matrix.postRotate(angle)
         return Bitmap.createBitmap(
@@ -213,7 +144,7 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
         )
     }
 
-    fun isValid() : Boolean {
+    private fun isValid() : Boolean {
         var valid = true
 
         if (tv_location.text.toString().isEmpty()) {
@@ -226,21 +157,38 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
             et_description.error = "Deskripsi tidak boleh kosong"
         }
 
+        if (date.isEmpty() || time.isEmpty()) {
+            valid = false
+            context?.onSnackNotif(tv_date_time, "Masukkan waktu pelanggaran")
+            return valid
+        }
+
+        if (latLng == null) {
+            valid = false
+            context?.onSnackNotif(tv_date_time, "Pilih lokasi terlebih dahulu")
+            return valid
+        }
+
         return valid
     }
 
-    fun gotoNextFragment() {
+    private fun gotoNextFragment() {
         val reportReviewFragment = ReportReviewFragment()
 
         val description = et_description.text.toString()
 
         val bundle = Bundle()
-        bundle.putDouble("latitude", latitude!!) // Put anything what you want
-        bundle.putDouble("longitude", longitude!!) // Put anything what you want
-        bundle.putString("dest", dest.path) // Put anything what you want
-        bundle.putString("city", cityName) // Put anything what you want
-        bundle.putString("province", provinceName) // Put anything what you want
-        bundle.putString("description", description) // Put anything what you want
+        bundle.putString("time", time)
+        bundle.putString("date", date)
+        bundle.putString("dest", dest.path)
+        bundle.putString("city", cityName)
+        bundle.putString("province", provinceName)
+        bundle.putString("description", description)
+        bundle.putDouble("latitude", latLng!!.latitude)
+        bundle.putDouble("longitude", latLng!!.longitude)
+        bundle.putString("additionalLocationInfo", et_location_name.text.toString())
+        bundle.putString("violationPlace", spinner_violation_place.selectedItem.toString())
+        bundle.putString("violationKind", spinner_violation_kind.selectedItem.toString())
 
         reportReviewFragment.setArguments(bundle)
 
@@ -251,18 +199,48 @@ class ReportDescriptionFragment : Fragment(), View.OnClickListener {
         this.dest = dest
     }
 
-    override fun onPause() {
-        super.onPause()
-        stopLocationUpdates()
+    private fun showDatePicker() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(context,
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                showTimePicker(year, monthOfYear, dayOfMonth) }, year, month, day)
+        datePickerDialog.show()
     }
 
-    override fun onStart() {
-        super.onStart()
-        getLocation()
+    private fun showTimePicker(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val c = Calendar.getInstance()
+        val hour = c.get(Calendar.HOUR)
+        val minute = c.get(Calendar.MINUTE)
+        val timePickerDialog = TimePickerDialog(context,
+            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                String
+                tv_date_time.text = getDateTimeFormatted(year, monthOfYear, dayOfMonth, hourOfDay, minute) }, hour, minute, true)
+        timePickerDialog.show()
     }
 
-    private fun stopLocationUpdates() {
-        mLocationManager?.removeUpdates(mLocationListener)
-        mLocationManager2?.removeUpdates(mLocationListener)
+    private fun getDateTimeFormatted(year: Int, month: Int, day: Int, hour: Int, minute: Int) : String {
+        val c = Calendar.getInstance()
+        c.set(Calendar.YEAR, year)
+        c.set(Calendar.MONTH, month)
+        c.set(Calendar.DAY_OF_MONTH, day)
+        c.set(Calendar.HOUR, hour)
+        c.set(Calendar.MINUTE, minute)
+
+        val pattern = "dd MMM yyyy - HH mm"
+        val formatter = SimpleDateFormat(pattern)
+
+        val patternDate = "dd MMM yyyy"
+        val formatterDate = SimpleDateFormat(patternDate)
+        date = formatterDate.format(c.time)
+
+        val patternTime = "HH mm"
+        val formatterTime = SimpleDateFormat(patternTime)
+        time = formatterTime.format(c.time)
+
+        return formatter.format(c.time)
     }
 }

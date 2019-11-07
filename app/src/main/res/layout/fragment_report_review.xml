@@ -51,6 +51,7 @@
 
             <TextView
                     style="@style/TitleTextLayoutReport"
+                    android:textSize="16sp"
                     android:text="Laporan Kamu"/>
 
             <ImageView
@@ -63,9 +64,12 @@
 
             <TextView
                     style="@style/TitleTextLayoutReport"
+                    android:textSize="16sp"
                     android:text="Lokasi Laporan"/>
 
+
             <LinearLayout
+                    android:id="@+id/ll_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -76,27 +80,194 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location"/>
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_location_on_24dp"/>
 
                 <TextView
                         android:id="@+id/tv_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:textSize="16sp"
                         android:textColor="@color/black"
                         android:text="Lokasi"/>
 
             </LinearLayout>
 
             <TextView
+                    android:id="@+id/tv_location_name"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak ada keterangan tambahan"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_location_city_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:text="Tempat pelanggaran"/>
+
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/tv_violation_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="Tempat pelanggaran"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_smoking_rooms_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:text="Jenis pelanggaran"/>
+
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/tv_violation_kind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="Jenis pelanggaran"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <LinearLayout
+                    android:id="@+id/ll_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_access_alarm_24dp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:text="Waktu pelanggaran"/>
+
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/tv_date_time"
+                        android:text="waktu"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+            <TextView
                     style="@style/TitleTextLayoutReport"
+                    android:textSize="16sp"
                     android:text="Deskripsi Laporan"/>
 
             <TextView
                     android:id="@+id/tv_description"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

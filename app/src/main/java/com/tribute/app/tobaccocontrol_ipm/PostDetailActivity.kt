@@ -178,14 +178,19 @@ class PostDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         val postRef = myDB.collection("post").document(idPost)
         postRef.get().addOnSuccessListener {
-            val idUser = if (it.get("id_user").toString() != null) it.get("id_user").toString() else ""
-            val urlPhoto = if (it.get("url_photo").toString() != null) it.get("url_photo").toString() else ""
-            val city = if (it.get("city").toString() != null) it.get("city").toString() else "Keterangan kota tidak dimasukkan"
-            val province = if (it.get("province").toString() != null) it.get("province").toString() else ""
+            val idPost = it.id
+            val idUser = if (it.get("id_user") != null) it.get("id_user").toString() else ""
+            val urlPhoto = if (it.get("url_photo") != null) it.get("url_photo").toString() else ""
+            val city = if (it.get("city") != null) it.get("city").toString() else "Keterangan kota tidak dimasukkan"
+            val province = if (it.get("province") != null) it.get("province").toString() else ""
+            val additionalLocationInfo = if (it.get("additional_location_info") != null) it.get("additional_location_info").toString() else ""
             val description = if (it.get("description").toString() != null) it.get("description").toString() else "Deskripsi tidak dimasukkan"
-            val date = if (it.get("date").toString() != null) it.get("date").toString() else "Data tanggal tidak dimasukkan"
+            val date = if (it.get("date") != null) it.get("date").toString() else ""
+            val time = if (it.get("time") != null) it.get("time").toString() else ""
             val latitude = if (it.get("latitude") != null) it.get("latitude") as Double else -7.782834
             val longitude = if (it.get("longitude") != null) it.get("longitude") as Double else 110.368279
+            val violationPlace = if (it.get("violation_place") != null) it.get("violation_place").toString() else "Tempat pelanggaran tidak diatur"
+            val violationKind = if (it.get("violation_kind") != null) it.get("violation_kind").toString() else "Jenis pelanggaran tidak diatur"
 
             //set data to view
             tv_description.text = description

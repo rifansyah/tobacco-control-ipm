@@ -25,4 +25,22 @@
     <string name="edit">Sunting</string>
     <string name="profile">Profil</string>
     <string name="location">Lokasi</string>
+
+    <string-array name="violation_kind_list">
+        <item>Merokok</item>
+        <item>Menjual rokok</item>
+        <item>Mempromosikan rokok</item>
+        <item>Iklan rokok dan kegiatan yang disponsori rokok</item>
+    </string-array>
+
+    <string-array name="violation_place_list">
+        <item>Tempat kerja</item>
+        <item>Tempat ibadah</item>
+        <item>Angkutan umum</item>
+        <item>Tempat bermain anak</item>
+        <item>Tempat belajar mengajar</item>
+        <item>Fasilitas pelayanan kesehatan</item>
+        <item>Tempat umum (mall, bandara, stasiun, dll)</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>
