@@ -1,6 +1,4 @@
 package com.tribute.app.tobaccocontrol_ipm
-
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,31 +20,23 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.lang.Exception
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class ProfileFragment : Fragment(), View.OnClickListener {
 
-    val posts: ArrayList<Post> = ArrayList()
-    val postsIndex: ArrayList<String> = ArrayList()
+    private val posts: ArrayList<Post> = ArrayList()
+    private val postsIndex: ArrayList<String> = ArrayList()
 
-    val myDB = FirebaseFirestore.getInstance()
-    val storageRef = FirebaseStorage.getInstance().reference
-
-    val mAuth = FirebaseAuth.getInstance()
+    private val myDB = FirebaseFirestore.getInstance()
+    private val mAuth = FirebaseAuth.getInstance()
+    private val storageRef = FirebaseStorage.getInstance().reference
 
     private val TAG = "PROFILE"
+    private var v : View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_profile, container, false)
-
+        v = inflater.inflate(R.layout.fragment_profile, container, false)
         return v
     }
 
@@ -57,18 +47,17 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         posts.clear()
         setDataListener(view)
-//        getPostData(view)
         setProfileData(view)
 
         setupOnClick()
     }
 
-    fun setupOnClick() {
+    private fun setupOnClick() {
         tv_exit.setOnClickListener(this)
         tv_edit_profile.setOnClickListener(this)
     }
 
-    fun setProfileData(v: View) {
+    private fun setProfileData(v: View) {
          myDB.collection("users").document(mAuth.currentUser?.uid.toString()).addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if (e != null) {
                 Log.w("Profile", "Listen failed.", e)
@@ -84,7 +73,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 val signaturePhoto = it.get("photo_signature").toString()
 
                 v.tv_location_profile.text = address
-                v.tv_name_profile.text = name
+                v.tv_name_profile.text = if (context?.getUserRole() == MainActivity.ADMIN) "$name (Admin)" else name
 
                 val newOption : RequestOptions by lazy {
                     RequestOptions()
@@ -108,7 +97,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     }
 
-    fun setDataListener(v: View) {
+    private fun setDataListener(v: View) {
         progressbar.visibility = View.VISIBLE
         myDB.collection("post").whereEqualTo("id_user", mAuth.currentUser?.uid.toString()).orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener(EventListener<QuerySnapshot> { snapshots, e ->
@@ -191,7 +180,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun setRecyclerView() {
+    private fun setRecyclerView() {
         rv_profile.layoutManager = LinearLayoutManager(context)
         rv_profile.adapter = PostAdapter(posts, context, { idPost, position, post, menu ->
             if (menu == HomeFragment.REMOVE) {
@@ -199,6 +188,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     if(it) {
                         myDB.collection("post").document(idPost).delete().addOnSuccessListener {
                             context?.onSnackNotif(fl_container_profile, "Laporan berhasil di hapus")
+                            posts.clear()
+                            setDataListener(v!!)
+                            v?.rv_profile?.adapter?.notifyDataSetChanged()
                         }
                     }
                 }
@@ -213,5 +205,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             LinearLayoutManager(context).getOrientation()
         )
         rv_profile.addItemDecoration(dividerItemDecoration)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        posts.clear()
+        setDataListener(v!!)
+        v?.rv_profile?.adapter?.notifyDataSetChanged()
     }
 }
