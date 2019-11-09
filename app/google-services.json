@@ -8,19 +8,23 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:141690775805:android:0e21a58f67e4e8a5",
+        "mobilesdk_app_id": "1:141690775805:android:e7742bc232d9eb725d3694",
         "android_client_info": {
-          "package_name": "com.tribute.app.tobaccocontrol_ipm"
+          "package_name": "com.tribute.app.pelajarmemantau"
         }
       },
       "oauth_client": [
         {
-          "client_id": "141690775805-14cbue9trtqjgv791i875pob5945eh2q.apps.googleusercontent.com",
+          "client_id": "141690775805-1mvamsf4h3ejag7e05u2oh7jfijlrqhp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tribute.app.tobaccocontrol_ipm",
-            "certificate_hash": "f6bc7a2f237cd2518b2b6f08f0acfb23f929acea"
+            "package_name": "com.tribute.app.pelajarmemantau",
+            "certificate_hash": "c2225b5692aca1d03369ff4e4013e87691ab5c45"
           }
+        },
+        {
+          "client_id": "141690775805-d9d0ult3j8l30ce2n7hmnoj9gb28e6h6.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

@@ -1,0 +1,3 @@
+package com.tribute.app.pelajarmemantau.post
+
+class Post(val idPost: String, val idUser : String, val urlPhoto : String, val city : String, val province : String, val additionalLocationInfo : String, val descriptionPost : String, val date : String, val time : String, val latitude: Double, val longitude : Double, val violationPlace : String, val violationKind : String, val comments : ArrayList<Comment>)

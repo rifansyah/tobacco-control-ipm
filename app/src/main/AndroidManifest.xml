@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.tribute.app.tobaccocontrol_ipm">
+        package="com.tribute.app.pelajarmemantau">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -42,11 +42,11 @@
                 android:value="@string/google_maps_key" />
 
         <activity
-                android:name=".MapsActivity"
+                android:name="com.tribute.app.pelajarmemantau.MapsActivity"
                 android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name="com.tribute.app.pelajarmemantau.ForgotPasswordActivity" />
         <activity
-                android:name=".ProfileActivity"
+                android:name="com.tribute.app.pelajarmemantau.ProfileActivity"
                 android:screenOrientation="portrait" />
 
         <meta-data
@@ -57,10 +57,10 @@
                 android:value="CmteId1pkqgGSWiWICWCXQ" />
 
         <activity
-                android:name=".ShowImageActivity"
+                android:name="com.tribute.app.pelajarmemantau.ShowImageActivity"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".SplashScreenActivity"
+                android:name="com.tribute.app.pelajarmemantau.SplashScreenActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,26 +69,26 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".EditProfileActivity"
+                android:name="com.tribute.app.pelajarmemantau.EditProfileActivity"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".PostDetailActivity"
+                android:name="com.tribute.app.pelajarmemantau.PostDetailActivity"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".RegisterActivity"
+                android:name="com.tribute.app.pelajarmemantau.RegisterActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan" />
         <activity
-                android:name=".LoginActivity"
+                android:name="com.tribute.app.pelajarmemantau.LoginActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan" />
         <activity
-                android:name=".ReportActivity"
+                android:name="com.tribute.app.pelajarmemantau.ReportActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan" />
         <activity
-                android:name=".MainActivity"
+                android:name="com.tribute.app.pelajarmemantau.MainActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan" />
 

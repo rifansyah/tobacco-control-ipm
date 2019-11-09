@@ -17,6 +17,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/inputLayout"
@@ -64,32 +65,21 @@
                             app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
+                            android:id="@+id/tv_name_sender"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
                             android:text="Nama"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
                             android:textColor="@color/black"
-                            android:id="@+id/tv_name_sender"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_support"
                             app:layout_constraintStart_toEndOf="@+id/profile_image"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toTopOf="@+id/tv_location" android:layout_marginEnd="8dp"
-                            app:layout_constraintEnd_toStartOf="@+id/iv_support"
-                            app:layout_constraintVertical_chainStyle="packed"
-                            app:layout_constraintVertical_bias="0.51"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Sleman"
-                            android:textSize="10sp"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_name_sender"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/profile_image"
-                            android:layout_marginStart="8dp"
-                            android:id="@+id/tv_location" app:layout_constraintEnd_toStartOf="@+id/iv_support"
-                            android:layout_marginEnd="8dp"/>
+                            app:layout_constraintVertical_bias="0.51"
+                            app:layout_constraintVertical_chainStyle="packed" />
 
                     <ImageView
                             android:id="@+id/iv_support"
@@ -131,31 +121,119 @@
                         android:textColor="#000"
                         android:textSize="18sp"/>
 
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/light_grey"
+                        android:layout_marginBottom="16dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Informasi laporan :"/>
+
+                <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp">
+
+                    <TableRow
+                            android:layout_marginTop="4dp">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lokasi"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" : "/>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Lokasi pelanggaran"
+                                android:id="@+id/tv_location"/>
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_marginTop="4dp">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tempat"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" : "/>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tempat pelanggaran"
+                                android:id="@+id/tv_violation_place"/>
+
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_marginTop="4dp">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Jenis"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" : "/>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tempat pelanggaran"
+                                android:id="@+id/tv_violation_kind"/>
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_marginTop="4dp">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Waktu"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" : "/>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Waktu pelanggaran"
+                                android:id="@+id/tv_date_time"/>
+                    </TableRow>
+
+                </TableLayout>
+
                 <TextView
                         android:id="@+id/tv_support"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_margin="16dp"
                         android:text="0 Dukungan"
                         android:textColor="#000"
                         android:textSize="14sp"/>
-
-                <TextView
-                        android:id="@+id/tv_date_since"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="Tanggal"
-                        android:textSize="12sp"/>
 
             </LinearLayout>
 
@@ -184,34 +262,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    <fragment
-                            class="com.here.android.mpa.mapping.SupportMapFragment"
-                            android:id="@+id/mapFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"/>
-                    <LinearLayout
+                    <FrameLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
-                            android:layout_margin="16dp"
-                            android:orientation="vertical">
+                            android:layout_height="200dp">
 
-                        <ImageView
-                                android:id="@+id/iv_zoom_in"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:elevation="5dp"
-                                android:src="@drawable/ic_add"/>
+                        <fragment
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:map="http://schemas.android.com/apk/res-auto"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/map"
+                                android:name="com.google.android.gms.maps.SupportMapFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                map:cameraZoom="16"/>
 
-                        <ImageView
-                                android:id="@+id/iv_zoom_out"
-                                android:layout_marginTop="4dp"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:elevation="5dp"
-                                android:src="@drawable/ic_min"/>
+                        <View
+                                android:id="@+id/transparent_touch_panel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
 
-                    </LinearLayout>
+                    </FrameLayout>
 
                 </FrameLayout>
 

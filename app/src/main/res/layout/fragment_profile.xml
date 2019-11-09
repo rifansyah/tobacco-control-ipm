@@ -13,13 +13,14 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="true"
-                    android:background="@drawable/profile_banner">
+                    android:background="@drawable/profile_banner2">
 
                 <TextView
                         android:id="@+id/tv_edit_profile"
